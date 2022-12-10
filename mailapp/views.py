@@ -23,16 +23,16 @@ def login_view(request):
             login(request, user)
             return HttpResponseRedirect(reverse("index"))
         else:
-            return render(request, "mail/login.html", {
+            return render(request, "mailapp/login.html", {
                 "message": "Invalid email and/or password."
             })
     else:
-        return render(request, "mail/login.html")
+        return render(request, "mailapp/login.html")
 
 
 def logout_view(request):
     logout(request)
-    return HttpResponseRedirect(reverse("index"))
+    return HttpResponseRedirect(reverse("login"))
 
 
 def register(request):
@@ -43,7 +43,7 @@ def register(request):
         password = request.POST["password"]
         confirmation = request.POST["confirmation"]
         if password != confirmation:
-            return render(request, "mail/register.html", {
+            return render(request, "mailapp/register.html", {
                 "message": "Passwords must match."
             })
 
@@ -59,4 +59,4 @@ def register(request):
         login(request, user)
         return HttpResponseRedirect(reverse("index"))
     else:
-        return render(request, "mail/register.html")
+        return render(request, "mailapp/register.html")
