@@ -8,7 +8,8 @@
     {% endif %}
 
     <h3 class="welcome-note">Welcome 😊. Now you can send emails 😊.</h3>
-    <!-- <div class="bg-model">
+    <a id="openform" class="btn btn-primary btn-sm">Send email to customers</a>
+    <div class="bg-model">
         <div class="model-content">
             <a href="{% url 'index' %}" style="color:black;">
                 <div class="close">+</div>
@@ -18,9 +19,16 @@
                 <div class="patient-form">
                     <form action="" method="POST" enctype="multipart/form-data" class="form-group">
                         {% csrf_token %}
-                        {{patient_form}}
+                        <div class="form-group">
+                            <label for="emailsubject">Subject</label>
+                            <input type="text" id="emailsubject" name="emailsubject" class="form-control" placeholder="Subject" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="emailbody">Email body</label>
+                            <textarea name="emailbody" id="emailbody" cols="30" rows="10" class="form-control"></textarea>
+                        </div>
                         <div style="margin-bottom: 2px;"></div>
-                        <input type="Submit" class="btn sbtn">
+                        <input type="Submit" class="btn btn-danger btn-sm btn-block">
                     </form>
                 </div>
             {% else %}
@@ -29,7 +37,7 @@
             
         </div>
         
-    </div> -->
+    </div>
     <!-- <h3>List of Users</h3>
     <ul class="user-d">
         {% for a_user in all_users %}

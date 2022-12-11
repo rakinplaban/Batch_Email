@@ -24,6 +24,7 @@ def index(request):
     else:
         return HttpResponseRedirect('login')
 
+
 def login_view(request):
     if request.method == "POST":
 
