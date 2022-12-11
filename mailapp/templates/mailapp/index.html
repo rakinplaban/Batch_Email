@@ -4,9 +4,38 @@
 
 {% block body %}
     {% if user.is_authenticated %}
-    <a class="btn btn-danger" href="{% url 'logout' %}">Log out</a>
+    <a class="btn btn-danger btn-sm" href="{% url 'logout' %}">Log out</a>
     {% endif %}
 
-    <h1>The app started successfully! 😊</h1>
+    <h3 class="welcome-note">Welcome 😊. Now you can send emails 😊.</h3>
+    <!-- <div class="bg-model">
+        <div class="model-content">
+            <a href="{% url 'index' %}" style="color:black;">
+                <div class="close">+</div>
+            </a>
+            <h1>Add Patient</h1>
+            {% if user.is_authenticated %}
+                <div class="patient-form">
+                    <form action="" method="POST" enctype="multipart/form-data" class="form-group">
+                        {% csrf_token %}
+                        {{patient_form}}
+                        <div style="margin-bottom: 2px;"></div>
+                        <input type="Submit" class="btn sbtn">
+                    </form>
+                </div>
+            {% else %}
+                <div class="sorry">Sorry! You have to <a href="{% url 'login' %}">login</a>. 😔</div>
+            {% endif %}
+            
+        </div>
+        
+    </div> -->
+    <!-- <h3>List of Users</h3>
+    <ul class="user-d">
+        {% for a_user in all_users %}
+            <li>{{a_user}}</li>
+        {% endfor %}
+    </ul> -->
+    
 
 {% endblock %}
