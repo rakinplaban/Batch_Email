@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.contrib.auth import authenticate, login, logout
@@ -7,17 +7,23 @@ from django.db import IntegrityError
 from .models import User
 from django.core.mail import send_mail
 
+
 # Create your views here.
 def index(request):
-    # send_mail(
-    #     'Testing mail',
-    #     'Here is the message',
-    #     'plaban_r@yahoo.com',
-    #     ['arata@relifelab.com'],
-    #     fail_silently=False,
-    # )
     all_users = User.objects.all()
+    
     if request.user.is_authenticated:
+        if request.method == 'POST':
+            subject = request.POST['emailsubject']
+            body = request.POST['emailbody']
+            send_mail(
+                subject,
+                body,
+                'plaban_r@yahoo.com',
+                all_users,
+                fail_silently=False,
+            )
+            return redirect('index')
         return render(request,'mailapp/index.html',{
             'all_users' : all_users,
         })
