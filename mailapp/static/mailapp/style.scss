@@ -1,0 +1,61 @@
+$red_music : red;
+$red_susan : rgba(179, 6, 6, 0.755);
+.user-d{
+    list-style: none;
+}
+
+.welcome-note{
+    color: rgb(193, 255, 127);
+}
+
+.sbtn{
+    background-color: $red_music;
+    color: azure;
+    font-weight: bold;
+    &:hover{
+        background-color: $red_susan;
+    }
+}
+
+.bg-model{
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    opacity: 0.9;
+    position: absolute;
+    top: 0;
+    // display: flex;
+    justify-content: center;
+    align-items: center;
+    display: none;
+}
+
+.model-content{
+    width: 500px;
+    height: 522px;
+    background-color: white;
+    opacity: 1;
+    border-radius: 50px;
+    h1{
+        text-align: center;
+        margin-top: 18px;
+        color: $red_music;
+    }
+    position: relative;
+}
+
+.close{
+    position: absolute;
+    right: 6%;
+    top: 2%;
+    transform: rotate(45deg);
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.patient-form{
+    margin: 2rem 2rem 2rem 2rem;
+    label{
+        color: $red_susan;
+    }
+}

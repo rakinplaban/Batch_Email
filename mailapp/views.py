@@ -5,10 +5,25 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.db import IntegrityError
 from .models import User
+from django.core.mail import send_mail
 
 # Create your views here.
 def index(request):
-    return render(request,'mailapp/index.html')
+    # send_mail(
+    #     'Testing mail',
+    #     'Here is the message',
+    #     'plaban_r@yahoo.com',
+    #     ['arata@relifelab.com'],
+    #     fail_silently=False,
+    # )
+    all_users = User.objects.all()
+    if request.user.is_authenticated:
+        return render(request,'mailapp/index.html',{
+            'all_users' : all_users,
+        })
+    else:
+        return HttpResponseRedirect('login')
+
 
 def login_view(request):
     if request.method == "POST":
