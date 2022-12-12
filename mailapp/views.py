@@ -5,7 +5,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.db import IntegrityError
 from .models import User
-from django.core.mail import send_mail
+from django.core.mail import send_mail, send_mass_mail
 
 
 # Create your views here.
@@ -16,12 +16,10 @@ def index(request):
         if request.method == 'POST':
             subject = request.POST['emailsubject']
             body = request.POST['emailbody']
+            sender = request.user
             send_mail(
-                subject,
-                body,
-                'plaban_r@yahoo.com',
-                all_users,
-                fail_silently=False,
+                subject,body,sender,all_users,fail_silently=False
+    
             )
             return redirect('index')
         return render(request,'mailapp/index.html',{
