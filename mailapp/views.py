@@ -3,6 +3,7 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from django.views.decorators.csrf import csrf_exempt
 from django.db import IntegrityError
 from .models import User
 from django.core.mail import send_mail, send_mass_mail
@@ -30,7 +31,7 @@ def index(request):
 
 
 
-
+@csrf_exempt
 def login_view(request):
     if request.method == "POST":
 
