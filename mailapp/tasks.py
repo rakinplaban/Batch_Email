@@ -1,7 +1,7 @@
-import celery
+from celery import shared_task
 
-
-def test_func():
+@shared_task(bind=True)
+def test_func(self):
     for i in range(10):
         print(i)
     print("Done!")

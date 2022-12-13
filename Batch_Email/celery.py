@@ -12,6 +12,8 @@ app.conf.update(timezone = 'Asia/Dhaka')
 
 app.config_from_object('django.conf:settings', namespace='CELERY')
 
+app.conf.beat_schedule = {}
+
 # Load task modules from all registered Django apps.
 app.autodiscover_tasks()
 

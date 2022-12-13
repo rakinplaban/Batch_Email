@@ -29,7 +29,9 @@ def index(request):
     else:
         return HttpResponseRedirect('login')
 
-
+def test(request):
+    test_func.delay()
+    return HttpResponse("Done!")
 
 @csrf_exempt
 def login_view(request):
