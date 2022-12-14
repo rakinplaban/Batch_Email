@@ -18,7 +18,7 @@ def index(request):
             subject = request.POST['emailsubject']
             body = request.POST['emailbody']
             sender = request.user
-            send_mail_func.delay(subject,body)
+            send_mail_func.delay(subject,body,sender.email)
             return redirect('index')
         return render(request,'mailapp/index.html',{
             'all_users' : all_users,
