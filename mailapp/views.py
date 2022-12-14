@@ -7,7 +7,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.db import IntegrityError
 from .models import User
 from django.core.mail import send_mail, send_mass_mail
-from .tasks import test_func
+from .tasks import send_mail_func
 
 # Create your views here.
 def index(request):
@@ -18,10 +18,7 @@ def index(request):
             subject = request.POST['emailsubject']
             body = request.POST['emailbody']
             sender = request.user
-            send_mail(
-                subject,body,sender,all_users,fail_silently=False
-    
-            )
+            send_mail_func.delay(subject,body,sender)
             return redirect('index')
         return render(request,'mailapp/index.html',{
             'all_users' : all_users,
@@ -29,9 +26,7 @@ def index(request):
     else:
         return HttpResponseRedirect('login')
 
-def test(request):
-    test_func.delay()
-    return HttpResponse("Done!")
+
 
 @csrf_exempt
 def login_view(request):
