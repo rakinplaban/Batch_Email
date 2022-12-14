@@ -4,13 +4,13 @@ from .models import User
 
 @shared_task(bind=True)
 def send_mail_func(self,subject,body,sender):
-    users = User.objects.all().values()
-    users = list(users)
-    receipents = []
-    for user in users:
-        receipents.append(user.email)
+    # users = User.objects.all().values()
+    # users = list(users)
+    # receipents = []
+    # for user in users:
+    #     receipents.append(user.email)
     send_mail(
-        subject, body, sender,receipents, 
+        subject,body,sender,['arata@relifelab.com','ryo@relifelab.com'], 
         fail_silently=False
         
     )
