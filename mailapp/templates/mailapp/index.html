@@ -8,29 +8,16 @@
     {% endif %}
   
     <h3 class="welcome-note">Welcome 😊. Now you can send emails 😊.</h3>
-    <a id="openform" class="btn btn-primary btn-sm"><i class="fa-sharp fa-solid fa-up-right-from-square"></i>Send email to customers</a>
-    <div class="bg-model">
+    
+    <div>
         <div class="model-content">
-            <a href="{% url 'index' %}" style="color:black;">
-                <div class="close">+</div>
-            </a>
-            <h1>Add Patient</h1>
+            
             {% if user.is_authenticated %}
                 <div class="patient-form">
                     <form action="" method="POST" enctype="multipart/form-data" class="form-group">
                         {% csrf_token %}
-                        <div class="form-group">
-                            <label for="emailsubject">Subject</label>
-                            <input type="text" id="emailsubject" name="emailsubject" class="form-control" placeholder="Subject" required>
-                        </div>
-                        <!-- <div class="form-group">
-                            <label for="mailto">To</label>
-                            <input type="email" id="mailto" name="mailto" class="form-control" placeholder="Email id of the receipent" required>
-                        </div> -->
-                        <div class="form-group">
-                            <label for="emailbody">Email body</label>
-                            <textarea name="emailbody" id="emailbody" cols="30" rows="5" class="form-control"></textarea>
-                        </div>
+                        {{ form.media }}
+                        {{ form.as_p }}
                         <div style="margin-bottom: 2px;"></div>
                         <input type="Submit" class="btn btn-danger btn-sm btn-block">
                     </form>
