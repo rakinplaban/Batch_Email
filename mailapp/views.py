@@ -1,30 +1,40 @@
-from django.shortcuts import render
-from django.http import HttpResponseRedirect
+from django.shortcuts import render,redirect
+from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from django.views.decorators.csrf import csrf_exempt
 from django.db import IntegrityError
 from .models import User
-from django.core.mail import send_mail
-
+from django.core.mail import send_mail, send_mass_mail
+from .tasks import send_mail_func
+from .forms import EmailForm
 # Create your views here.
 def index(request):
-    # send_mail(
-    #     'Testing mail',
-    #     'Here is the message',
-    #     'plaban_r@yahoo.com',
-    #     ['arata@relifelab.com'],
-    #     fail_silently=False,
-    # )
     all_users = User.objects.all()
+    form = EmailForm()
     if request.user.is_authenticated:
+        if request.method == 'POST':
+            form = EmailForm(request.POST,request.FILES)
+            if form.is_valid():
+                instance = form.save(commit=False)
+                instance.sender = request.user
+                instance.save()
+                subject = instance.subject
+                body = instance.body
+                sender = request.user
+                send_mail_func.delay(subject,body,sender.email)
+                return redirect('index')
         return render(request,'mailapp/index.html',{
             'all_users' : all_users,
+            'form' : form,
         })
     else:
         return HttpResponseRedirect('login')
 
 
+
+@csrf_exempt
 def login_view(request):
     if request.method == "POST":
 

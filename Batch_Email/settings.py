@@ -28,17 +28,21 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
+CKEDITOR_UPLOAD_PATH = 'uploads/'
 # Application definition
 
 INSTALLED_APPS = [
     'mailapp',
+    'ckeditor',
+    'ckeditor_uploader',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_celery_results',
+    'django_celery_beat',
 ]
 
 MIDDLEWARE = [
@@ -80,7 +84,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'postgres',
         'USER': 'postgres',
-        'HOST': 'db',
+        'HOST': '127.0.0.1',
         'PORT': '5432',
         'PASSWORD': 'qnr63363'
     }
@@ -124,6 +128,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = BASE_DIR / 'static'
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
@@ -135,3 +142,13 @@ EMAIL_PORT = 587
 EMAIL_HOST_USER = '1f59c487c0cecf'
 EMAIL_HOST_PASSWORD = '5e5b5fb74a87c8'
 EMAIL_USER_TLS = True
+
+CELERY_BROKER_URL = 'redis://127.0.0.1:6379'
+CELERY_ACCEPT_CONTENT = ['application/json']
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_TIMEZONE = 'Asia/Dhaka'
+
+CELERY_RESULT_BACKEND = 'django-db'
+
+CELERY_BEAT_SCHEDULER = 'django_celery_beat.scheduler:DatabaseScheduler'
