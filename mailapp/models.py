@@ -12,8 +12,8 @@ class User(AbstractUser):
 
 class Email(models.Model):
     subject = models.CharField(max_length=100)
-    body = RichTextField()
-    body_upload = RichTextUploadingField(blank=True,null=True)
+    # body = RichTextField()
+    body = RichTextUploadingField(blank=True,null=True)
     sender = models.ForeignKey(User, on_delete=CASCADE,related_name='sender')
     timestamp = datetime.now()
     
