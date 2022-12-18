@@ -1,1 +1,1 @@
-# Batch Email sending app.
+# Batch Email sending app..
